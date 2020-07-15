@@ -44,7 +44,7 @@ public class SearchPage extends Base{
 	}
 		
 	
-	// Get item name from search results page
+	//  item name from search 
 	 
 	
 	public String getItemName() {

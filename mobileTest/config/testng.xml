@@ -8,7 +8,7 @@
 		<classes>
 			<class name="test.AmazonAPKTest" >
 				<methods>
-					<include name="testSearch_Compare" />			
+					<include name="testCompare" />			
 				</methods>
 			</class>
 		</classes>
