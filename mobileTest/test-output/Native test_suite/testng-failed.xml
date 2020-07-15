@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Native test_suite]">
+  <listeners>
+    <listener class-name="commonFunctions.Listener"/>
+  </listeners>
+  <test name="Module 1(failed)">
+    <classes>
+      <class name="test.AmazonAPKTest">
+        <methods>
+          <include name="afterSuite"/>
+          <include name="testSearch_Compare"/>
+          <include name="beforeMethod"/>
+          <include name="beforeSuite"/>
+          <include name="afterMethod"/>
+        </methods>
+      </class> <!-- test.AmazonAPKTest -->
+    </classes>
+  </test> <!-- Module 1(failed) -->
+</suite> <!-- Failed suite [Native test_suite] -->
