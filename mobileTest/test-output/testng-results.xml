@@ -2,12 +2,12 @@
 <testng-results skipped="1" failed="0" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="23" started-at="2020-07-15T18:18:05Z" finished-at="2020-07-15T18:18:05Z">
+  <suite name="Suite" duration-ms="22" started-at="2020-07-15T18:33:11Z" finished-at="2020-07-15T18:33:11Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="23" started-at="2020-07-15T18:18:05Z" finished-at="2020-07-15T18:18:05Z">
+    <test name="Test" duration-ms="22" started-at="2020-07-15T18:33:11Z" finished-at="2020-07-15T18:33:11Z">
       <class name="test.AmazonAPKTest">
-        <test-method status="FAIL" signature="beforeSuite(org.testng.ITestContext)[pri:0, instance:test.AmazonAPKTest@578486a3]" name="beforeSuite" is-config="true" duration-ms="1429" started-at="2020-07-15T23:48:04Z" finished-at="2020-07-15T23:48:05Z">
+        <test-method status="FAIL" signature="beforeSuite(org.testng.ITestContext)[pri:0, instance:test.AmazonAPKTest@578486a3]" name="beforeSuite" is-config="true" duration-ms="1502" started-at="2020-07-16T00:03:09Z" finished-at="2020-07-16T00:03:11Z">
           <params>
             <param index="0">
               <value>
@@ -45,11 +45,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method status="SKIP" signature="beforeMethod(org.testng.ITestContext, java.lang.reflect.Method)[pri:0, instance:test.AmazonAPKTest@578486a3]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2020-07-15T23:48:05Z" finished-at="2020-07-15T23:48:05Z">
+        <test-method status="SKIP" signature="beforeMethod(org.testng.ITestContext, java.lang.reflect.Method)[pri:0, instance:test.AmazonAPKTest@578486a3]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2020-07-16T00:03:11Z" finished-at="2020-07-16T00:03:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="SKIP" signature="testSearch_Compare()[pri:0, instance:test.AmazonAPKTest@578486a3]" name="testSearch_Compare" duration-ms="0" started-at="2020-07-15T23:48:05Z" finished-at="2020-07-15T23:48:05Z">
+        <test-method status="SKIP" signature="testSearch_Compare()[pri:0, instance:test.AmazonAPKTest@578486a3]" name="testSearch_Compare" duration-ms="0" started-at="2020-07-16T00:03:11Z" finished-at="2020-07-16T00:03:11Z">
           <exception class="java.lang.NullPointerException">
             <full-stacktrace>
               <![CDATA[java.lang.NullPointerException
@@ -80,7 +80,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSearch_Compare -->
-        <test-method status="SKIP" signature="afterSuite(org.testng.ITestContext)[pri:0, instance:test.AmazonAPKTest@578486a3]" name="afterSuite" is-config="true" duration-ms="0" started-at="2020-07-15T23:48:05Z" finished-at="2020-07-15T23:48:05Z">
+        <test-method status="SKIP" signature="afterSuite(org.testng.ITestContext)[pri:0, instance:test.AmazonAPKTest@578486a3]" name="afterSuite" is-config="true" duration-ms="0" started-at="2020-07-16T00:03:11Z" finished-at="2020-07-16T00:03:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterSuite -->
