@@ -13,48 +13,47 @@ import org.testng.Reporter;
 import commonFunctions.Base;
 import commonFunctions.TestReporter;
 
-public class SearchPage extends Base{
+public class SearchPage extends Base {
 
-	
-	@FindBy(xpath = "//*[@resource-id=\"com.amazon.mShop.android.shopping:id/item_title\"]")
-    private List<WebElement> list_resultItem;
+	WebDriverWait wait = new WebDriverWait(driver, 20);
 
-	@FindBy(xpath = "//*[@resource-id='com.amazon.mShop.android.shopping:id/rs_corrections_mixed_quartz']")
-	private WebElement label_SearchResults;
-
-	WebDriverWait wait=new WebDriverWait(driver, 20);
 	@Override
 	public void waitForPageToLoad() {
-		
-		wait.until(ExpectedConditions.visibilityOf(label_SearchResults));
-	}	
-	
 
-	 // Verify Search Result page loaded
-	 
+		wait.until(ExpectedConditions.visibilityOf(label_SearchResults));
+	}
+
+	// Verify Search Result page loaded
+
 	public SearchPage verifySearchResultPage() {
-		
+
 		try {
 			waitForPageToLoad();
-			TestReporter.AssertTrueWithScreenshot(label_SearchResults.isDisplayed(),"Verify Search Result page is loaded successfully");
+			TestReporter.AssertTrueWithScreenshot(label_SearchResults.isDisplayed(),
+					"Verify Search Result page is loaded successfully");
 		} catch (NoSuchElementException e) {
 			Assert.fail("Failed to load Search Result page");
 		}
 		return this;
 	}
-		
-	
-	//  item name from search 
-	 
-	
+
+	// item name from search
+
 	public String getItemName() {
 		String deviceName = "";
 		try {
-			deviceName = list_resultItem.get(2).getText();;
+			deviceName = list_resultItem.get(2).getText();
+			;
 			Reporter.log(" Item name from search results page");
 		} catch (Exception e) {
 			Assert.fail("Failed to get item name from search results page");
 		}
 		return deviceName;
 	}
+
+	@FindBy(xpath = "//*[@resource-id=\"com.amazon.mShop.android.shopping:id/item_title\"]")
+	private List<WebElement> list_resultItem;
+
+	@FindBy(xpath = "//*[@resource-id='com.amazon.mShop.android.shopping:id/rs_corrections_mixed_quartz']")
+	private WebElement label_SearchResults;
 }

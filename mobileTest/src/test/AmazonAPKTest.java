@@ -12,26 +12,26 @@ import pages.SearchPage;
 import pages.SignInPage;;
 
 public class AmazonAPKTest extends CapInitialise {
-	
-	FileInput files= new FileInput();
-	
+
+	FileInput files = new FileInput();
+
 	@Test
 	public void testCompare() throws Exception {
-		
+
 		SignInPage signInObj = new SignInPage();
 		signInObj.verifySignInPage();
 		signInObj.clickSignIn();
-		
-		//Login
+
+		// Login
 		LoginPage loginObj = new LoginPage();
 		loginObj.verifyLogInPage();
-		loginObj.userLogIn(); 
+		loginObj.logInUser();
 
-		//search keyword 
+		// search keyword
 		HomePage homePageObj = new HomePage();
 		homePageObj.verifyHomePage();
-		homePageObj.EnterKeyword_SearchItem(); 
-		
+		homePageObj.EnterKeyword_SearchItem();
+
 		SearchPage searchResultObj = new SearchPage();
 		searchResultObj.verifySearchResultPage();
 		String expectedItemName = searchResultObj.getItemName();
@@ -39,15 +39,15 @@ public class AmazonAPKTest extends CapInitialise {
 		ProductPage productDetailsPage = new ProductPage();
 		productDetailsPage.verifyProductDetailsPage();
 		productDetailsPage.clickBuyNow();
-		
+
 		CheckoutPage checkoutObj = new CheckoutPage();
 		checkoutObj.verifyCheckOutPage();
 		checkoutObj.clickNetBankingRadioButton();
 		checkoutObj.selectBank();
 		checkoutObj.clickContinueButton();
-		
-		//Comparing the item name 
+
+		// Comparing the item name
 		String actualItemName = checkoutObj.getItemNameText();
-		checkoutObj.compareItemNames(actualItemName, expectedItemName);	
+		checkoutObj.compareItemNames(actualItemName, expectedItemName);
 	}
 }

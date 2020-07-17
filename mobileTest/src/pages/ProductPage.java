@@ -12,44 +12,36 @@ import commonFunctions.Base;
 import commonFunctions.TestReporter;
 import commonFunctions.Utility;
 
-public class ProductPage extends Base{
+public class ProductPage extends Base {
 
+	WebDriverWait wait = new WebDriverWait(driver, 20);
 
-	@FindBy(xpath = "//*[@resource-id='titleExpander']")
-	private WebElement label_ProductTitle;
-	
-	@FindBy(xpath = "//*[@resource-id='buyNowCheckout']")
-	private WebElement button_BuyNow;
-
-	WebDriverWait wait=new WebDriverWait(driver, 20);
 	@Override
 	public void waitForPageToLoad() {
-		
+
 		wait.until(ExpectedConditions.visibilityOf(label_ProductTitle));
-	}	
-	
-	
-	 // Verify Product Details page loaded successfully
-	 
+	}
+
+	// Verify Product Details page loaded successfully
+
 	public ProductPage verifyProductDetailsPage() {
-		
+
 		try {
 			waitForPageToLoad();
-			TestReporter.AssertTrueWithScreenshot(button_BuyNow.isDisplayed(),"Verify Product Details page is loaded successfully");
+			TestReporter.AssertTrueWithScreenshot(button_BuyNow.isDisplayed(),
+					"Verify Product Details page is loaded successfully");
 		} catch (NoSuchElementException e) {
 			Assert.fail("Failed to load Product Details page");
 		}
 		return this;
 	}
-	
-	
+
 	// Buy Now button click on Product details page
-	
-	
+
 	public ProductPage clickBuyNow() {
 		try {
-			while(!(button_BuyNow.isDisplayed())){ 	
-			Utility.swipeVeritcal(driver, 0.9, 0.2, 2); //Scroll Down till Buy Now button displayed
+			while (!(button_BuyNow.isDisplayed())) {
+				Utility.swipeVeritcal(driver, 0.9, 0.2, 2); // Scroll Down till Buy Now button displayed
 			}
 			button_BuyNow.click();
 			Reporter.log("Buy Now button is clicked successfully");
@@ -58,4 +50,11 @@ public class ProductPage extends Base{
 		}
 		return this;
 	}
+
+	@FindBy(xpath = "//*[@resource-id='titleExpander']")
+	private WebElement label_ProductTitle;
+
+	@FindBy(xpath = "//*[@resource-id='buyNowCheckout']")
+	private WebElement button_BuyNow;
+
 }

@@ -38,7 +38,6 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.events.EventFiringWebDriverFactory;
 import io.appium.java_client.remote.MobileCapabilityType;
 
-
 public class CapInitialise extends Config {
 
 	DesiredCapabilities capabilities;
@@ -58,9 +57,8 @@ public class CapInitialise extends Config {
 
 	public void AppiumCapabilities() {
 
-		
 		try {
-			
+
 			System.out.print(System.getProperty("user.dir"));
 
 			props.load(new FileReader(new File(APPLICATION_PROPERTIES_FILE)));
@@ -69,17 +67,17 @@ public class CapInitialise extends Config {
 			EXECUTION_TYPE = props.getProperty("execution.type");
 
 			if (EXECUTION_TYPE.toUpperCase().trim().equals("ANDROID")) {
-				ANDROID_APP=props.getProperty("android.app");
+				ANDROID_APP = props.getProperty("android.app");
 				ANDROID_ID = props.getProperty("android.id");
 				ANDROID_PKG_ID = props.getProperty("android.pkg.id");
-				ANDROID_ACTIVITY_ID=props.getProperty("android.activity.id");
-				ANDROID_WAIT_ACTIVITY_ID=props.getProperty("android.wait.activity.id");
+				ANDROID_ACTIVITY_ID = props.getProperty("android.activity.id");
+				ANDROID_WAIT_ACTIVITY_ID = props.getProperty("android.wait.activity.id");
 				ANDROID_AUTOMATION_NAME = props.getProperty("android.automation.name");
 				ANDROID_NO_RESET = props.getProperty("android.noReset");
 				ANDROID_FULL_RESET = props.getProperty("android.fullReset");
-				
+
 			} else {
-				//IOS
+				// IOS
 			}
 
 		} catch (FileNotFoundException e) {
@@ -95,10 +93,10 @@ public class CapInitialise extends Config {
 	public void startAppium(String platform) throws MalformedURLException {
 		capabilities = new DesiredCapabilities();
 		capabilities.setCapability("browserName", "");
-		
+
 		switch (platform) {
 		case "IOS":
-				//IOS 
+			// IOS
 			break;
 
 		case "ANDROID":
@@ -117,7 +115,8 @@ public class CapInitialise extends Config {
 
 			try {
 				log.info("setting capabilities : " + capabilities);
-				driver = new AndroidDriver<AndroidElement>(new URL("http://"+APPIUM_SERVER_URL+"/wd/hub"), capabilities);
+				driver = new AndroidDriver<AndroidElement>(new URL("http://" + APPIUM_SERVER_URL + "/wd/hub"),
+						capabilities);
 				log.info(" driver instance created successfully");
 			} catch (Exception e) {
 				log.error("not able to create driver instance");
@@ -136,73 +135,76 @@ public class CapInitialise extends Config {
 		System.out.println("Driver Initialized successfully.....");
 		Reporter.log("Driver Initialized successfully.....");
 	}
-	
-	 @BeforeSuite
-		public void beforeSuite(ITestContext context) throws InterruptedException, FileNotFoundException, IOException{
-	    	AppiumCapabilities();
-	    	
-	    	if(props.getProperty("new.appium.session.between.test").toUpperCase().trim().equals("FALSE")) {
-				log.info("Running test case from feature: "+ context.getName());
-				startAppium(EXECUTION_TYPE.trim().toUpperCase());
-			}
-	    	
-	    	//Report Directory and Report Name
-			extent = new ExtentReports(System.getProperty("user.dir")+"/report.html", true); 
-			extent.loadConfig(new File(System.getProperty("user.dir")+"/extent-config.xml"));
-			
+
+	@BeforeSuite
+	public void beforeSuite(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
+		AppiumCapabilities();
+
+		if (props.getProperty("new.appium.session.between.test").toUpperCase().trim().equals("FALSE")) {
+			log.info("Running test case from feature: " + context.getName());
+			startAppium(EXECUTION_TYPE.trim().toUpperCase());
 		}
-	 
-	 @BeforeMethod
-		public void beforeMethod(ITestContext context, Method method) throws InterruptedException, FileNotFoundException, IOException{
-			if(props.getProperty("new.appium.session.between.test").toUpperCase().trim().equals("TRUE")) {
-				log.info("Running test case from feature: "+ context.getName());
-				
-				startAppium(EXECUTION_TYPE.trim().toUpperCase());
-			}else {
-				driver.launchApp();
-			}
-			
-			test = extent.startTest( (this.getClass().getSimpleName() +" :: "+  method.getName()),method.getName()); //Test Case Start Here
-			test.assignAuthor(props.getProperty("test.author").toUpperCase().trim()); //Test Script Author Name
-			test.assignCategory(props.getProperty("test.category").toUpperCase().trim());
-			
+
+		// Report Directory and Report Name
+		extent = new ExtentReports(System.getProperty("user.dir") + "/report.html", true);
+		extent.loadConfig(new File(System.getProperty("user.dir") + "/extent-config.xml"));
+
+	}
+
+	@BeforeMethod
+	public void beforeMethod(ITestContext context, Method method)
+			throws InterruptedException, FileNotFoundException, IOException {
+		if (props.getProperty("new.appium.session.between.test").toUpperCase().trim().equals("TRUE")) {
+			log.info("Running test case from feature: " + context.getName());
+
+			startAppium(EXECUTION_TYPE.trim().toUpperCase());
+		} else {
+			driver.launchApp();
 		}
-	 
-	 @AfterMethod
-		public void afterMethod(ITestResult result) {
-			if(props.getProperty("new.appium.session.between.test").toUpperCase().trim().equals("TRUE")) {
-				log.info("End of Test Case : "+ result.getMethod().getMethodName()+ result.toString());
-				driver.closeApp();
-				log.info("closed application");
-				driver.quit();
-				log.info("closed appium session");
-			}
-			else {
-				log.info("End of Test Case : "+ result.getMethod().getMethodName()+ result.toString());
-				driver.resetApp();
-				driver.closeApp();
-				log.info("closed application");
-			}
-			
-			extent.endTest(test);
-			extent.flush();
-			
+
+		test = extent.startTest((this.getClass().getSimpleName() + " :: " + method.getName()), method.getName()); // Test
+																													// Case
+																													// Start
+																													// Here
+		test.assignAuthor(props.getProperty("test.author").toUpperCase().trim()); // Test Script Author Name
+		test.assignCategory(props.getProperty("test.category").toUpperCase().trim());
+
+	}
+
+	@AfterMethod
+	public void afterMethod(ITestResult result) {
+		if (props.getProperty("new.appium.session.between.test").toUpperCase().trim().equals("TRUE")) {
+			log.info("End of Test Case : " + result.getMethod().getMethodName() + result.toString());
+			driver.closeApp();
+			log.info("closed application");
+			driver.quit();
+			log.info("closed appium session");
+		} else {
+			log.info("End of Test Case : " + result.getMethod().getMethodName() + result.toString());
+			driver.resetApp();
+			driver.closeApp();
+			log.info("closed application");
 		}
-	 
-	 @AfterSuite
-		public void afterSuite(ITestContext context) {
-			if(props.getProperty("new.appium.session.between.test").toUpperCase().trim().equals("FALSE")) {
-				log.info("End of Test Suite.");
-				log.info("Passed test cases"+ context.getPassedTests());
-				log.info("Failed test cases"+ context.getFailedTests());
-				log.info("Skipped test cases"+ context.getSkippedTests());
-				driver.closeApp();
-				log.info("closed application");
-				driver.quit();
-				log.info("closed appium session");
-			}
-			
-			extent.close();
+
+		extent.endTest(test);
+		extent.flush();
+
+	}
+
+	@AfterSuite
+	public void afterSuite(ITestContext context) {
+		if (props.getProperty("new.appium.session.between.test").toUpperCase().trim().equals("FALSE")) {
+			log.info("End of Test Suite.");
+			log.info("Passed test cases" + context.getPassedTests());
+			log.info("Failed test cases" + context.getFailedTests());
+			log.info("Skipped test cases" + context.getSkippedTests());
+			driver.closeApp();
+			log.info("closed application");
+			driver.quit();
+			log.info("closed appium session");
 		}
-	
+
+		extent.close();
+	}
+
 }

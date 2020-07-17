@@ -14,80 +14,58 @@ import commonFunctions.Base;
 import commonFunctions.FileInput;
 import commonFunctions.TestReporter;
 
+public class CheckoutPage extends Base {
 
-public class CheckoutPage extends Base{
-
-	FileInput files= new FileInput();
-
-	@FindBy(xpath = "//*[@text='Continue']")
-	private WebElement button_Continue;
-	
-	
-	@FindBy(xpath = "//*[@resource-id='a-autoid-0-announce']")
-	private WebElement button_Address;
-	
-	@FindBy(xpath = "//*[@resource-id='net-banking']")
-	private WebElement radio_NetBanking;
-	
-	@FindBy(xpath = "//*[@resource-id='bank-options-combo']")
-	private WebElement dropDown_BankName;
-	
-	@FindBy(xpath = "//*[@resource-id='list-banks']")
-	private List <WebElement> list_BankOptions;
-	
-	@FindBy(xpath = "//*[@resource-id=\"com.amazon.mShop.android.shopping:id/item_title\"]")
-	private WebElement text_ItemName;
-	
-	
-	WebDriverWait wait=new WebDriverWait(driver, 20);
+	FileInput files = new FileInput();
+	WebDriverWait wait = new WebDriverWait(driver, 20);
 
 	@Override
 	public void waitForPageToLoad() {
-		
+
 		wait.until(ExpectedConditions.visibilityOf(button_Address));
 		TestReporter.logWithScreenShot("Address Details:- ");
 		button_Address.click();
 		wait.until(ExpectedConditions.visibilityOf(button_Continue));
 		TestReporter.logWithScreenShot("Delivery Date Details:- ");
-	}	
-	
-	
-	//  Verify CheckOut Payments 
-	 
+	}
+
+	// Verify CheckOut Payments
+
 	public CheckoutPage verifyCheckOutPage() {
 		try {
 			waitForPageToLoad();
-			TestReporter.AssertTrueWithScreenshot(button_Continue.isDisplayed(),"Verify CheckOut page is loaded successfully");
+			TestReporter.AssertTrueWithScreenshot(button_Continue.isDisplayed(),
+					"Verify CheckOut page is loaded successfully");
 		} catch (NoSuchElementException e) {
 			Assert.fail("Unable to load CheckOut page");
 		}
 		return this;
 	}
-		
-	// Select Bank  
-	 
+
+	// Select Bank
+
 	public CheckoutPage selectBank() {
 		wait.until(ExpectedConditions.visibilityOf(dropDown_BankName));
 		try {
-			String bankName = files.BankName(); //Fetching netbanking Bank name from TestData.xls
+			String bankName = files.BankName(); // Bank name from TestData.xls
 			dropDown_BankName.click();
 			for (WebElement webElement : list_BankOptions) {
 				if (webElement.getText().equalsIgnoreCase(bankName)) {
 					webElement.click();
 					break;
-					}
 				}
+			}
 		} catch (Exception e) {
 			Assert.fail("Selecting Bank Name Failed");
 		}
 		return this;
 	}
-	
-	//Select Net Banking payment option
-	 
+
+	// Select Net Banking payment option
+
 	public CheckoutPage clickNetBankingRadioButton() {
 		try {
-			
+
 			radio_NetBanking.click();
 			Reporter.log("NetBanking option is clicked successfully");
 		} catch (Exception e) {
@@ -95,13 +73,12 @@ public class CheckoutPage extends Base{
 		}
 		return this;
 	}
-	
-	
-	 // Click Continue button
-	 
+
+	// Click Continue button
+
 	public CheckoutPage clickContinueButton() {
 		try {
-			
+
 			button_Continue.click();
 			Reporter.log("Continue button is clicked successfully");
 		} catch (Exception e) {
@@ -109,11 +86,9 @@ public class CheckoutPage extends Base{
 		}
 		return this;
 	}
-	
-	
-	 //Get selected item name from CheckOut page
-	 
-	
+
+	// Get selected item name from CheckOut page
+
 	public String getItemNameText() {
 		String actualDeviceName = "";
 		wait.until(ExpectedConditions.visibilityOf(text_ItemName));
@@ -125,10 +100,9 @@ public class CheckoutPage extends Base{
 		}
 		return actualDeviceName;
 	}
-	
-	
-	 // Compare device names between search results and checkout
-	 
+
+	// Compare device names between search results and checkout
+
 	public CheckoutPage compareItemNames(String actualValue, String expectedValue) {
 		try {
 			Assert.assertEquals(actualValue, expectedValue, "String Comparison failed");
@@ -139,4 +113,22 @@ public class CheckoutPage extends Base{
 		}
 		return this;
 	}
+
+	@FindBy(xpath = "//*[@text='Continue']")
+	private WebElement button_Continue;
+
+	@FindBy(xpath = "//*[@resource-id='a-autoid-0-announce']")
+	private WebElement button_Address;
+
+	@FindBy(xpath = "//*[@resource-id='net-banking']")
+	private WebElement radio_NetBanking;
+
+	@FindBy(xpath = "//*[@resource-id='bank-options-combo']")
+	private WebElement dropDown_BankName;
+
+	@FindBy(xpath = "//*[@resource-id='list-banks']")
+	private List<WebElement> list_BankOptions;
+
+	@FindBy(xpath = "//*[@resource-id=\"com.amazon.mShop.android.shopping:id/item_title\"]")
+	private WebElement text_ItemName;
 }
