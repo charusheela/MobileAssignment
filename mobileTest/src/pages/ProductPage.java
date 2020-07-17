@@ -22,7 +22,7 @@ public class ProductPage extends Base {
 		wait.until(ExpectedConditions.visibilityOf(label_ProductTitle));
 	}
 
-	// Verify Product Details page loaded successfully
+	// Verify Product Detail page loaded successfully
 
 	public ProductPage verifyProductDetailsPage() {
 
