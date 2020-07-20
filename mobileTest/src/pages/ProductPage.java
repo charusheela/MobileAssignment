@@ -50,6 +50,8 @@ public class ProductPage extends Base {
 		}
 		return this;
 	}
+	
+	
 
 	@FindBy(xpath = "//*[@resource-id='titleExpander']")
 	private WebElement label_ProductTitle;
